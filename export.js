@@ -1,4 +1,3 @@
-
 var MongoClient = require('mongodb').MongoClient;
 
 MongoClient.connect('mongodb://127.0.0.1:27017/movieList', function(err, db) {
@@ -7,11 +6,9 @@ MongoClient.connect('mongodb://127.0.0.1:27017/movieList', function(err, db) {
     //*************
     // Movies
     //*************
-    var moviesCollection = db.collection('movies');
-    
-    var movies1 = require( './assets/1_movies' );
-    var movies2 = require( './assets/2_movies' );
-    var movies = [].concat(movies1).concat(movies2);
+
+    var moviesCollection = db.collection('movies'),
+        movies = require( './assets/movies' );
 
     moviesCollection.remove(function(){
         console.log( ">>>>>> movies Cleared" );
@@ -21,10 +18,10 @@ MongoClient.connect('mongodb://127.0.0.1:27017/movieList', function(err, db) {
                 console.log( err );
             }
             console.log( "movies inserted: " + docs.length );
+            console.log( "Close, Ctrl+C" );
         });
     });
     //*************
     // Movies END
     //*************
-
 });
