@@ -76,15 +76,15 @@ def get_movies(page_id)
 end
 
 threads = []
-3.times.map do |i|
+5.times.map do |i|
   threads << Thread.new do
     # pages from 0 to 500
-    for page_id in (i*5)..(1*100)
-      puts "\nstarted page #{page_id}\n"
+    for page_id in (i*5)..(i*20)
+      puts "started page #{page_id}"
       movies = get_movies(page_id)
       moviesAll = moviesAll + movies unless movies.nil?
-      puts "\nfinished page: #{page_id}\n"
-      sleep 8
+      puts "finished page: #{page_id}"
+      sleep 5
     end
   end
 end
@@ -94,3 +94,4 @@ movieCollection = "[#{moviesAll.map(&:to_json).join(",\n")}]"
 File.open('movies.json', 'w') { |file| file.write movieCollection }
 
 puts "\nDone !"
+

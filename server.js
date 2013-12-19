@@ -1,17 +1,21 @@
 var express = require('express'),
- 	movies = require('./routes/movies');
+	path 	= require('path'),
+	http 	= require('http'),
+	movies  = require('./routes/movies');
 
 var app = express();
- 
+
 app.configure(function () {
-    app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
-    app.use(express.bodyParser());
+	app.set('port', process.env.PORT || 3001);
+	app.use(express.logger('dev'));  /* 'default', 'short', 'tiny', 'dev' */
+	app.use(express.bodyParser()),
+	app.use(express.static(path.join(__dirname, 'public')));
 });
 
+app.get('/', movies.findAll);
 app.get('/movies', movies.findAll);
 app.get('/movies/year/:year', movies.findByYear);
 
-//app.get('/movies/:id', movies.findById);
-
-app.listen(3000);
-console.log('Listening on port 3000...');
+http.createServer(app).listen(app.get('port'), function () {
+	console.log("Express server listening on port " + app.get('port'));
+});
