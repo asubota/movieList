@@ -3,7 +3,7 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         ""                  : "list",
         "movies"            : "list",
-        "movies/page/:page"	: "list",
+        "movies/page/:page" : "list",
         "movies/:id"        : "movieDetails",
     },
 

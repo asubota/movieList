@@ -5,6 +5,7 @@ require "active_support/core_ext"
 require 'open-uri'
 require 'fileutils'
 require 'net/http'
+require 'thread'
 
 moviesAll = []
 
@@ -75,23 +76,24 @@ def get_movies(page_id)
   movies
 end
 
+pages = 0..6
 threads = []
-5.times.map do |i|
-  threads << Thread.new do
-    # pages from 0 to 500
-    for page_id in (i*5)..(i*20)
-      puts "started page #{page_id}"
-      movies = get_movies(page_id)
-      moviesAll = moviesAll + movies unless movies.nil?
-      puts "finished page: #{page_id}"
-      sleep 5
+queue = Queue.new
+pages.each{|page_id| queue << page_id }
+
+4.times do
+    threads << Thread.new do
+      while (page_id = queue.pop(true) rescue nil)
+        puts "working on page: #{page_id}"
+        movies = get_movies page_id
+        moviesAll = moviesAll + movies unless movies.nil?
+      end
     end
-  end
 end
+
 threads.each(&:join)
 
 movieCollection = "[#{moviesAll.map(&:to_json).join(",\n")}]"
 File.open('movies.json', 'w') { |file| file.write movieCollection }
 
 puts "\nDone !"
-
