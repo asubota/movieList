@@ -24,6 +24,8 @@ def get_extra(link)
     box
   end
 
+  puts "processing #{link}"
+
   movie_page = Nokogiri::HTML(open('http://brb.to/'+link)).css('div.l-center')
   rows = movie_page.css('tr')
   extra = {}
@@ -76,24 +78,34 @@ def get_movies(page_id)
   movies
 end
 
-pages = 0..6
-threads = []
-queue = Queue.new
-pages.each{|page_id| queue << page_id }
-
-4.times do
-    threads << Thread.new do
-      while (page_id = queue.pop(true) rescue nil)
-        puts "working on page: #{page_id}"
-        movies = get_movies page_id
-        moviesAll = moviesAll + movies unless movies.nil?
-      end
-    end
+def time
+  start = Time.now
+  yield
+  Time.now - start
 end
 
-threads.each(&:join)
+page_count = 500
+parsing_time = time do
+  pages = 0..page_count
+  threads = []
+  queue = Queue.new
+  pages.each{|page_id| queue << page_id }
 
-movieCollection = "[#{moviesAll.map(&:to_json).join(",\n")}]"
-File.open('movies.json', 'w') { |file| file.write movieCollection }
+  10.times do
+      threads << Thread.new do
+        while (page_id = queue.pop(true) rescue nil)
+          puts "working on page: #{page_id}"
+          movies = get_movies page_id
+          moviesAll = moviesAll + movies unless movies.nil?
+        end
+      end
+  end
 
-puts "\nDone !"
+  threads.each(&:join)
+
+  movieCollection = "[#{moviesAll.map(&:to_json).join(",\n")}]"
+  File.open('movies.json', 'w') { |file| file.write movieCollection }
+  puts "Done !\n\n"
+end
+
+puts "movie-pages parsed:\t#{page_count+1}\nparse time:\t\t#{parsing_time} seconds\ntotal movie count:\t#{moviesAll.size}"

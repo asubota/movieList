@@ -1,7 +1,7 @@
-var express = require('express'),
-	path 	= require('path'),
-	http 	= require('http'),
-	movies  = require('./routes/movies');
+var express	= require('express'),
+	path	= require('path'),
+	http	= require('http'),
+	movies	= require('./routes/movies');
 
 var app = express();
 
