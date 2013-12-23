@@ -1,1 +1,34 @@
-<%= title_ru %>
+<div class="ui segment">
+
+<img src="<%= image === null ? 'default.png' : 'logo/' + image %>" height="235" width="160" alt="<%= title_ru %>">
+<h5><%= title_ru %></h5>
+<h5><%= title_en %></h5>
+
+<p>Year: <%= year %>, directed by: <%= director %></p>
+
+<p>Actors: </p>
+<ul>
+  <% _.each(actors, function(item){ %>
+  <li><%= item %></li>
+  <% }) %>
+</ul>
+
+<p>Countries: </p>
+<ul>
+  <% _.each(countries, function(item){ %>
+  <li><%= item %></li>
+  <% }) %>
+</ul>
+
+<p>Genres: </p>
+<ul>
+  <% _.each(genres, function(item){ %>
+  <li><%= item %></li>
+  <% }) %>
+</ul>
+
+<div class="ui divider"></div>
+  <div class="ui button back mini teal">
+    back
+  </div>
+</div>

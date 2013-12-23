@@ -1,1 +1,12 @@
-<%= title_ru %>
+<div class="ui segment">
+
+	<a href="#movies/<%= id %>" title="<%= title_ru%>" class="movieItemList">
+		<img src="<%= image === null ? 'default.png' : 'logo/' + image %>" height="235" width="160" alt="<%= title_ru %>">
+		<div class="ui divider"></div>
+		<p>
+			<%= title_ru %> (<%= year %>)
+		</p>
+	</a>
+
+
+</div>

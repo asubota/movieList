@@ -17,7 +17,7 @@ def get_extra(link)
   def get_mini_extra(rows,row_num)
     box = []
     rows[row_num].css('td')[1].css('a span:not(.tag-country-flag)').each do |item|
-      value = item.text.strip.gsub(/[^a-zA-Zа-яА-Я0-9 ]/,'')
+      value = item.text.strip.gsub(/[^a-zA-Zа-яА-Я0-9 ]/,'').downcase
       box << value unless value === 'еще'
     end
 

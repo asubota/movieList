@@ -15,6 +15,6 @@ var utils = {
         });
 
         $.when.apply(null, deferreds).done(callback);
-    },
+    }
 
 };

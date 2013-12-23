@@ -12,9 +12,31 @@ app.configure(function () {
 	app.use(express.static(path.join(__dirname, 'public')));
 });
 
-app.get('/', movies.findAll);
-app.get('/movies', movies.findAll);
-app.get('/movies/year/:year', movies.findByYear);
+
+// movie calls
+app.get('/',							movies.findMovieAll);
+app.get('/movie',						movies.findMovieAll);
+app.get('/movie/:id',					movies.findMovieById);
+app.get('/movie/year/:year',			movies.findMovieByYear);
+app.get('/movie/director/:director',	movies.findMovieByDirector);
+app.get('/movie/genre/:genre',			movies.findMovieByGenre);
+
+
+// director calls
+app.get('/director',			movies.findDirectorAll);
+
+
+// genre calls
+app.get('/genre',				movies.findGenreAll);
+
+
+// actor calls
+app.get('/actor',				movies.findActorAll);
+
+
+// country calls
+app.get('/country',				movies.findCountryAll);
+
 
 http.createServer(app).listen(app.get('port'), function () {
 	console.log("Express server listening on port " + app.get('port'));
