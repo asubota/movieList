@@ -3,23 +3,32 @@ var MovieListView = Backbone.View.extend({
     initialize: function(options) {
         this.options = options || {};
         this.render();
-
     },
 
-    tagName: "div",
-    className: "ui four column grid",
+    className: "ui six column grid center aligned",
+
+    events: {
+        'click .ui.segment': 'detailInfo'
+    },
+
+    detailInfo: function(event) {
+        var id = $(event.target).closest('.ui.segment').data('id');
+        app.navigate("movies/" + id, {trigger: true});
+    },
 
     render: function() {
         var movies = this.model.models,
             len = movies.length,
-            startPos = (this.options.page - 1) * 16,
-            endPos = Math.min(startPos + 16, len);
+            startPos = (this.options.page - 1) * utils.per_page,
+            endPos = Math.min(startPos + utils.per_page, len);
+
 
         for (var i = startPos; i < endPos; i++) {
             this.$el.append(new MovieListItemView({model: movies[i]}).render().el);
         }
 
-        $(this.el).append(new Paginator({model: this.model, page: this.options.page}).render().el);
+        this.$el.append('<div class="ui horizontal icon divider"><i class="circular asterisk icon"></i></div>');
+        this.$el.append(new Paginator({model: this.model, page: this.options.page}).render().el);
 
         return this;
     }
@@ -27,7 +36,6 @@ var MovieListView = Backbone.View.extend({
 
 var MovieListItemView = Backbone.View.extend({
 
-    tagName: "div",
     className: "column",
     
     render: function() {

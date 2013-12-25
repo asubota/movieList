@@ -1,33 +1,80 @@
-<div class="ui segment">
+<div class="row">
 
-<img src="<%= image === null ? 'default.png' : 'logo/' + image %>" height="235" width="160" alt="<%= title_ru %>">
-<h5><%= title_ru %></h5>
-<h5><%= title_en %></h5>
+  <div class="ten wide column">
+    <div class="ui segment">
+      <div class="ui grid">
+        
+        <div class="four wide column">
+          <div class="image">
+            <img src="<%= image === null ? 'default.png' : 'logo/' + image %>" alt="<%= title_ru %>" class="rounded ui image" >
+          </div>
+        </div>
 
-<p>Year: <%= year %>, directed by: <%= director %></p>
+        <div class="twelve wide column">
+          <div class="content">
+            <div class="name"><%= title_ru %></div>
+            <p class="description"><%= description %></p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
-<p>Actors: </p>
-<ul>
-  <% _.each(actors, function(item){ %>
-  <li><%= item %></li>
-  <% }) %>
-</ul>
+  <div class="six wide column">
+    <div class="extra-info"> 
+      <div class="ui pointing secondary menu">
+        <a class="blue item" data-tab="t2">Directed by</a>
+        <a class="green item" data-tab="t3">Country</a>
+        <a class="teal item active" data-tab="t4">Genres</a>
+        <a class="teal item" data-tab="t5">Actors</a>
+      </div>
+      <%= title_ru %> / <%= title_en %> / <%= year %>
+      <div class="ui tab segment" data-tab="t2">
+        <div class="ui list">
+          <span class="item">
+            <i class="right icon"></i>
+            <%= director %>
+          </span>
+        </div>
+      </div>
+      <div class="ui tab segment" data-tab="t3">
+        <div class="ui list">
+          <% _.each(countries, function(item){ %>
+          <span class="item">
+            <i class="right icon"></i>
+            <%= item %>
+          </span>
+          <% }) %>
+        </div>
+      </div>
+      <div class="ui tab segment active" data-tab="t4">
+        <div class="ui list">
+          <% _.each(genres, function(item){ %>
+          <span class="item">
+            <i class="right icon"></i>
+            <%= item %>
+          </span>
+          <% }) %>
+        </div>
+      </div>
+      <div class="ui tab segment" data-tab="t5">
+        <div class="ui list">
+          <% _.each(actors, function(item){ %>
+          <span class="item">
+            <i class="right star icon"></i>
+            <%= item %>
+          </span>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<p>Countries: </p>
-<ul>
-  <% _.each(countries, function(item){ %>
-  <li><%= item %></li>
-  <% }) %>
-</ul>
+</div>
 
-<p>Genres: </p>
-<ul>
-  <% _.each(genres, function(item){ %>
-  <li><%= item %></li>
-  <% }) %>
-</ul>
-
-<div class="ui divider"></div>
+<div class="row">
+  <div class="ui divider"></div>
   <div class="ui button back mini teal">
     back
   </div>

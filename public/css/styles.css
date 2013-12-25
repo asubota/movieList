@@ -4,11 +4,24 @@ body {
 
 #container {
 	position: relative;
-	padding-bottom: 100px;
-	width: 915px;
+	//padding-bottom: 100px;
+	width: 1200px;
 	margin: 0px auto;
 }
 
 a {
 	color: #000;
+}
+
+.column .ui.segment {
+	cursor: pointer;
+}
+
+.ui.list span.item:hover{
+	color: #00BAFF;
+}
+
+div.image img {
+	width: 160px !important;
+	height: 225px !important;
 }

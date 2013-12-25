@@ -26,11 +26,14 @@ def get_extra(link)
 
   puts "processing #{link}"
 
-  movie_page = Nokogiri::HTML(open('http://brb.to/'+link)).css('div.l-center')
+  movie_page = Nokogiri::HTML(open('http://brb.to/'+link)).css('div.l-tab-item-content')
   rows = movie_page.css('tr')
   extra = {}
   if rows.size == 5
-    extra[:title_en]  = movie_page.css('div.b-tab-item__title-origin').text.strip
+    extra[:title_en]    = movie_page.css('div.b-tab-item__title-origin').text.strip
+    extra[:title_ru]    = movie_page.css('div.b-tab-item__title-inner span').text.strip
+    extra[:description] = movie_page.css('p.item-decription.full').text.strip
+    
     extra[:genres]    = get_mini_extra rows, 0
     extra[:year]      = get_mini_extra rows, 1
     extra[:countries] = get_mini_extra rows, 2
@@ -45,9 +48,8 @@ def get_movies(page_id)
   movies = []
   page_link = "http://brb.to/video/films/?page=#{page_id}"
   doc = Nokogiri::HTML(open(page_link)).css('div.b-section-list div.b-poster-section').each do |item|
-    title_ru  = item.css('a > span').text.strip
+    
     link      = item.css('a.subject-link')[0]['href']
-
     extra     = get_extra link
     unless extra.empty?
       if extra[:title_en].empty?
@@ -68,7 +70,6 @@ def get_movies(page_id)
 
       data = {
         id: id,
-        title_ru: title_ru,
         image: image
       }
       movies << data.merge(extra)
@@ -84,7 +85,7 @@ def time
   Time.now - start
 end
 
-page_count = 500
+page_count = 2
 parsing_time = time do
   pages = 0..page_count
   threads = []

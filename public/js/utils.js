@@ -1,5 +1,7 @@
 var utils = {
 
+    per_page: 18,
+
     loadTemplate: function(views, callback) {
 
         var deferreds = [];

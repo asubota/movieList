@@ -1,12 +1,20 @@
-<div class="ui segment">
+<div class="ui segment" data-id="<%= id %>">
 
-	<a href="#movies/<%= id %>" title="<%= title_ru%>" class="movieItemList">
-		<img src="<%= image === null ? 'default.png' : 'logo/' + image %>" height="235" width="160" alt="<%= title_ru %>">
-		<div class="ui divider"></div>
-		<p>
-			<%= title_ru %> (<%= year %>)
-		</p>
-	</a>
+	<div class="image">
+		<img src="<%= image === null ? 'default.png' : 'logo/' + image %>" alt="<%= title_ru %>"  class="rounded ui image">
+		
+		<% if (year > 2012) { %>
+			<div class="ui red corner label">
+				<div class="text">New</div>
+			</div>
+		<% } else {%>
+			<a class="like ui corner label">
+				<i class="like icon"></i>
+			</a>
+		<% } %>
 
-
+	</div>
+	<div class="ui divider"></div>
+	<%= title_ru %>
+	(<%= year %>)
 </div>

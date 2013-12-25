@@ -1,4 +1,4 @@
 movieList
 =========
 
-Example application with: nodejs, express, mongodb, backbone, underscore, jquery-templates, semantic-UI and ruby :) 
+Example application with: nodejs, express, mongodb, backbone, underscore, semantic-UI and ruby :)
