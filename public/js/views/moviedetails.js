@@ -13,8 +13,8 @@ var MovieView = Backbone.View.extend({
 
 	events: {
 		'click .back': 'back',
-		'click span.item': 'filter',
-		'click .extra-info a': 'switchTab'
+		'click .extra-info a': 'switchTab',
+		'click .sort-by': 'sortBy'
 	},
 
 	switchTab: function(event) {
@@ -32,9 +32,9 @@ var MovieView = Backbone.View.extend({
 		app.back();
 	},
 
-	filter: function(event) {
-		event.preventDefault();
-		// filter by ...
-	}
+	sortBy: function(event) {
+		var $element = $(event.target);
+		app.navigate($element.data('sort') + "/" + $element.data('value'), {trigger: true});
+	},
 
 });

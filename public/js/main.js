@@ -3,6 +3,7 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         ""                  : "list",
         "movies"            : "list",
+        "year/:value"       : "byyear",
         "movies/page/:page" : "list",
         "movies/:id"        : "movieDetails",
     },
@@ -10,9 +11,18 @@ var AppRouter = Backbone.Router.extend({
     list: function(page) {
         var p = page ? parseInt(page, 10) : 1,
             movieList = new MovieCollection();
-        
+
         movieList.fetch({success: function() {
             $("#content").html(new MovieListView({model: movieList, page: p}).el);
+        }});
+    },
+
+    byyear: function(year) {
+        var
+            movieList = new MovieCollection({type: 'year', value: year});
+
+        movieList.fetch({success: function() {
+            $("#content").html(new MovieListView({model: movieList}).el);
         }});
     },
 

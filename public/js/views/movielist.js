@@ -19,16 +19,26 @@ var MovieListView = Backbone.View.extend({
     render: function() {
         var movies = this.model.models,
             len = movies.length,
-            startPos = (this.options.page - 1) * utils.per_page,
-            endPos = Math.min(startPos + utils.per_page, len);
+            startPos, endPos,
+            paginator = true;
 
+        if (this.options.page) {
+            startPos = (this.options.page - 1) * utils.per_page;
+            endPos = Math.min(startPos + utils.per_page, len);
+        } else {
+            paginator = false;
+            startPos = 0;
+            endPos = len;
+        }
 
         for (var i = startPos; i < endPos; i++) {
             this.$el.append(new MovieListItemView({model: movies[i]}).render().el);
         }
 
-        this.$el.append('<div class="ui horizontal icon divider"><i class="circular asterisk icon"></i></div>');
-        this.$el.append(new Paginator({model: this.model, page: this.options.page}).render().el);
+        if (paginator) {
+            this.$el.append('<div class="ui horizontal icon divider"><i class="circular asterisk icon"></i></div>');
+            this.$el.append(new Paginator({model: this.model, page: this.options.page}).render().el);
+        }
 
         return this;
     }

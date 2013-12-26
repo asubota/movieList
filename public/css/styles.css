@@ -4,7 +4,6 @@ body {
 
 #container {
 	position: relative;
-	//padding-bottom: 100px;
 	width: 1200px;
 	margin: 0px auto;
 }
@@ -24,4 +23,14 @@ a {
 div.image img {
 	width: 160px !important;
 	height: 225px !important;
+}
+
+.sort-by {
+	cursor: pointer;
+	color: red;
+}
+
+.sort-by:hover {
+	color: #CCC;
+	text-decoration: underline;
 }
