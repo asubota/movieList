@@ -1,4 +1,4 @@
-var Paginator = Backbone.View.extend({
+var PaginatorView = Backbone.View.extend({
 
     className: 'ui divided horizontal list',
 

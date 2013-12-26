@@ -8,11 +8,15 @@ body {
 	margin: 0px auto;
 }
 
+#header {
+	margin-bottom: 20px;
+}
+
 a {
 	color: #000;
 }
 
-.column .ui.segment {
+.column .ui.segment[data-id] {
 	cursor: pointer;
 }
 
@@ -27,10 +31,8 @@ div.image img {
 
 .sort-by {
 	cursor: pointer;
-	color: red;
 }
 
 .sort-by:hover {
-	color: #CCC;
 	text-decoration: underline;
 }

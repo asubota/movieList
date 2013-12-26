@@ -37,7 +37,7 @@ var MovieListView = Backbone.View.extend({
 
         if (paginator) {
             this.$el.append('<div class="ui horizontal icon divider"><i class="circular asterisk icon"></i></div>');
-            this.$el.append(new Paginator({model: this.model, page: this.options.page}).render().el);
+            this.$el.append(new PaginatorView({model: this.model, page: this.options.page}).render().el);
         }
 
         return this;

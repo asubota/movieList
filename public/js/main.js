@@ -15,6 +15,7 @@ var AppRouter = Backbone.Router.extend({
         movieList.fetch({success: function() {
             $("#content").html(new MovieListView({model: movieList, page: p}).el);
         }});
+        this.headerView.selectMenuItem('main');
     },
 
     byyear: function(year) {
@@ -24,6 +25,7 @@ var AppRouter = Backbone.Router.extend({
         movieList.fetch({success: function() {
             $("#content").html(new MovieListView({model: movieList}).el);
         }});
+        this.headerView.selectMenuItem('year');
     },
 
     movieDetails: function(id) {
@@ -32,9 +34,12 @@ var AppRouter = Backbone.Router.extend({
         movie.fetch({success: function() {
             $("#content").html(new MovieView({model: movie}).el);
         }});
+        this.headerView.selectMenuItem('details');
     },
 
     initialize: function() {
+        this.headerView = new HeaderView();
+        $('#header').html(this.headerView.el);
         this.routesHit = 0;
         Backbone.history.on('route', function() {
             this.routesHit++;
@@ -51,7 +56,7 @@ var AppRouter = Backbone.Router.extend({
 
 });
 
-utils.loadTemplate(['MovieView', 'MovieListItemView', 'Paginator'], function() {
+utils.loadTemplate(['MovieView', 'MovieListItemView', 'PaginatorView', 'HeaderView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });
