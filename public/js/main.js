@@ -4,6 +4,10 @@ var AppRouter = Backbone.Router.extend({
         ""                  : "list",
         "movies"            : "list",
         "year/:value"       : "byyear",
+        "genre/:value"      : "bygenre",
+        "director/:value"   : "bydirector",
+        "country/:value"    : "bycountry",
+
         "movies/page/:page" : "list",
         "movies/:id"        : "movieDetails",
     },
@@ -18,14 +22,40 @@ var AppRouter = Backbone.Router.extend({
         this.headerView.selectMenuItem('main');
     },
 
-    byyear: function(year) {
-        var
-            movieList = new MovieCollection({type: 'year', value: year});
+    byyear: function(value) {
+        var movieList = new MovieCollection({type: 'year', value: value});
 
         movieList.fetch({success: function() {
             $("#content").html(new MovieListView({model: movieList}).el);
         }});
         this.headerView.selectMenuItem('year');
+    },
+
+    bygenre: function(value) {
+        var movieList = new MovieCollection({type: 'genre', value: value});
+
+        movieList.fetch({success: function() {
+            $("#content").html(new MovieListView({model: movieList}).el);
+        }});
+        this.headerView.selectMenuItem('genre');
+    },
+
+    bydirector: function(value) {
+        var movieList = new MovieCollection({type: 'director', value: value});
+
+        movieList.fetch({success: function() {
+            $("#content").html(new MovieListView({model: movieList}).el);
+        }});
+        this.headerView.selectMenuItem('director');
+    },
+
+    bycountry: function(value) {
+        var movieList = new MovieCollection({type: 'country', value: value});
+
+        movieList.fetch({success: function() {
+            $("#content").html(new MovieListView({model: movieList}).el);
+        }});
+        this.headerView.selectMenuItem('country');
     },
 
     movieDetails: function(id) {

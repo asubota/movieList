@@ -17,9 +17,10 @@ app.configure(function () {
 app.get('/',							movies.findMovieAll);
 app.get('/movie',						movies.findMovieAll);
 app.get('/movie/:id',					movies.findMovieById);
-app.get('/movie/year/:year',			movies.findMovieByYear);
-app.get('/movie/director/:director',	movies.findMovieByDirector);
-app.get('/movie/genre/:genre',			movies.findMovieByGenre);
+app.get('/movie/year/:value',			movies.findMovieByYear);
+app.get('/movie/director/:value',		movies.findMovieByDirector);
+app.get('/movie/genre/:value',			movies.findMovieByGenre);
+app.get('/movie/country/:value',		movies.findMovieByCountry);
 
 
 // director calls

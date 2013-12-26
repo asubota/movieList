@@ -34,10 +34,12 @@
       <%= title_ru %> / <%= title_en %> / <span class="sort-by" data-sort="year" data-value="<%= year %>"><%= year %></span>
       <div class="ui tab segment" data-tab="t2">
         <div class="ui list">
+          <% _.each(director, function(item){ %>
           <span class="item">
             <i class="right icon"></i>
-            <%= director %>
+            <span class="sort-by" data-sort="director" data-value="<%= item %>"><%= item %></span>
           </span>
+          <% }) %>
         </div>
       </div>
       <div class="ui tab segment" data-tab="t3">
@@ -45,7 +47,7 @@
           <% _.each(countries, function(item){ %>
           <span class="item">
             <i class="right icon"></i>
-            <%= item %>
+            <span class="sort-by" data-sort="country" data-value="<%= item %>"><%= item %></span>
           </span>
           <% }) %>
         </div>
@@ -55,7 +57,7 @@
           <% _.each(genres, function(item){ %>
           <span class="item">
             <i class="right icon"></i>
-            <%= item %>
+            <span class="sort-by" data-sort="genre" data-value="<%= item %>"><%= item %></span>
           </span>
           <% }) %>
         </div>

@@ -40,12 +40,12 @@ exports.findMovieById = function(req, res) {
 };
 
 exports.findMovieByYear = function(req, res) {
-    var year = req.params.year;
-    console.log('Retrieving movie by year: ' + year);
+    var value = req.params.value;
+    console.log('Retrieving movie by year: ' + value);
     db.collection('movies', function(err, collection) {
         collection.find().toArray(function(err, items) {
             var result = _.filter(items, function(item) {
-                return _.contains(item.year, year);
+                return _.contains(item.year, value);
             });
 
             res.send(result);
@@ -54,12 +54,12 @@ exports.findMovieByYear = function(req, res) {
 };
 
 exports.findMovieByGenre = function(req, res) {
-    var genre = req.params.genre;
-    console.log('Retrieving movie by genre: ' + genre);
+    var value = req.params.value;
+    console.log('Retrieving movie by genre: ' + value);
     db.collection('movies', function(err, collection) {
         collection.find().toArray(function(err, items) {
             var result = _.filter(items, function(item) {
-                return _.contains(item.genre, genre);
+                return _.contains(item.genres, value);
             });
 
             res.send(result);
@@ -68,12 +68,26 @@ exports.findMovieByGenre = function(req, res) {
 };
 
 exports.findMovieByDirector = function(req, res) {
-    var director = req.params.director;
-    console.log('Retrieving movie by director: ' + director);
+    var value = req.params.value;
+    console.log('Retrieving movie by director: ' + value);
     db.collection('movies', function(err, collection) {
         collection.find().toArray(function(err, items) {
             var result = _.filter(items, function(item) {
-                return _.contains(item.director, director);
+                return _.contains(item.director, value);
+            });
+
+            res.send(result);
+        });
+    });
+};
+
+exports.findMovieByCountry = function(req, res) {
+    var value = req.params.value;
+    console.log('Retrieving movie by country: ' + value);
+    db.collection('movies', function(err, collection) {
+        collection.find().toArray(function(err, items) {
+            var result = _.filter(items, function(item) {
+                return _.contains(item.countries, value);
             });
 
             res.send(result);
