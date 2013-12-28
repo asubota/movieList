@@ -22,7 +22,7 @@ db.open(function(err, db) {
 exports.findMovieAll = function(req, res) {
     db.collection('movies', function(err, collection) {
         collection.find().toArray(function(err, items) {
-            var result = _.first(items, 180);
+            var result = items;
 
             res.send(result);
         });

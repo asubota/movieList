@@ -8,7 +8,7 @@ var MovieListView = Backbone.View.extend({
     className: "ui six column grid center aligned",
 
     events: {
-        'click .ui.segment': 'detailInfo'
+        'click .column': 'detailInfo'
     },
 
     detailInfo: function(event) {
@@ -19,8 +19,8 @@ var MovieListView = Backbone.View.extend({
     render: function() {
         var movies = this.model.models,
             len = movies.length,
-            startPos, endPos,
-            paginator = true;
+            paginator = true,
+            startPos, endPos;
 
         if (this.options.page) {
             startPos = (this.options.page - 1) * utils.per_page;

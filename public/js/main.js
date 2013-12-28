@@ -60,7 +60,7 @@ var AppRouter = Backbone.Router.extend({
 
     movieDetails: function(id) {
         var movie = new Movie({id: id});
-        
+
         movie.fetch({success: function() {
             $("#content").html(new MovieView({model: movie}).el);
         }});
@@ -69,8 +69,10 @@ var AppRouter = Backbone.Router.extend({
 
     initialize: function() {
         this.headerView = new HeaderView();
-        $('#header').html(this.headerView.el);
         this.routesHit = 0;
+
+        $('#header').html(this.headerView.el);
+
         Backbone.history.on('route', function() {
             this.routesHit++;
         }, this);

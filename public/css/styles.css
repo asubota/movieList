@@ -24,11 +24,6 @@ a {
 	color: #00BAFF;
 }
 
-div.image img {
-	width: 160px !important;
-	height: 225px !important;
-}
-
 .sort-by {
 	cursor: pointer;
 }

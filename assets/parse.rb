@@ -32,7 +32,7 @@ def get_extra(link)
   if rows.size == 5
     extra[:title_en]    = movie_page.css('div.b-tab-item__title-origin').text.strip
     extra[:title_ru]    = movie_page.css('div.b-tab-item__title-inner span').text.strip
-    extra[:description] = movie_page.css('p.item-decription.full').text.strip
+    extra[:description] = movie_page.css('p.item-decription').text.strip
     
     extra[:genres]    = get_mini_extra rows, 0
     extra[:year]      = get_mini_extra rows, 1
@@ -85,7 +85,7 @@ def time
   Time.now - start
 end
 
-page_count = 2
+page_count = 60
 parsing_time = time do
   pages = 0..page_count
   threads = []
