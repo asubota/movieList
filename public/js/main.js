@@ -17,7 +17,10 @@ var AppRouter = Backbone.Router.extend({
             movieList = new MovieCollection();
 
         movieList.fetch({success: function() {
-            $("#content").html(new MovieListView({model: movieList, page: p}).el);
+            $("#content")
+                .html(new MovieListView({model: movieList, page: p}).el)
+                .append('<div class="ui horizontal icon divider"><i class="circular asterisk icon"></i></div>')
+                .append(new PaginatorView({model: movieList, page: p}).render().el);
         }});
         this.headerView.selectMenuItem('main');
     },

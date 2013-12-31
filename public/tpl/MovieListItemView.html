@@ -1,20 +1,26 @@
-<div class="ui segment" data-id="<%= id %>">
+<div class="ui shape" data-id="<%= id %>">
+	<div class="sides">
 
-	<div class="image">
-		<img src="<%= image === null ? 'default.png' : 'logo/' + image %>" alt="<%= title_ru %>"  class="rounded ui image">
-		
-		<% if (year > 2012) { %>
-			<div class="ui red corner label">
-				<div class="text">New</div>
+		<div class="side active ui segment cover">
+			<div class="image">
+				<div class="ui teal corner label">
+					<div class="text"><%= year %></div>
+				</div>
+				<img src="<%= 'logo/' + image %>" alt="<%= title_ru %>" class="rounded ui image">
 			</div>
-		<% } else {%>
-			<a class="like ui corner label">
-				<i class="like icon"></i>
-			</a>
-		<% } %>
+			<div class="content">
+				<h5 class="ui header center aligned">
+					<%= title_ru %>
+				</h5>
+			</div>
+		</div>
+
+		<div class="side ui segment text">
+			<h5 class="ui black block header inverted">
+				<%= title_ru %>
+			</h5>
+			<p><%= utils.format_text(description) %></p>
+		</div>
 
 	</div>
-	<div class="ui divider"></div>
-	<p><%= title_ru %></p>
-	(<%= year %>)
 </div>

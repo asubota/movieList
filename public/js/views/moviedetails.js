@@ -19,9 +19,10 @@ var MovieView = Backbone.View.extend({
 
 	switchTab: function(event) {
 		var tab = $(event.target).data('tab'),
-			$extra = this.$el.find('.extra-info');
+			$extra = this.$('.extra-info');
 
-		$extra.find('.active')
+		$extra
+			.find('.active')
 			.removeClass('active')
 			.end()
 			.find('[data-tab="'+tab+'"]')
