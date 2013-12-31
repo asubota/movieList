@@ -3,9 +3,8 @@ body {
 }
 
 #container {
-	position: relative;
-	width: 1200px;
-	margin: 0px auto;
+	margin-left: 30px;
+	margin-right: 30px;
 }
 
 #header {
@@ -16,11 +15,11 @@ a {
 	color: #000;
 }
 
-.column .ui.segment[data-id] {
+.ui.segment.side {
 	cursor: pointer;
 }
 
-.ui.list span.item:hover{
+.ui.list span.item:hover {
 	color: #00BAFF;
 }
 
@@ -30,4 +29,26 @@ a {
 
 .sort-by:hover {
 	text-decoration: underline;
+}
+
+.ui.shape {
+	height: 335px;
+	width: 240px;
+}
+
+.ui.shape .sides {
+	height: 335px;
+	width: 240px;
+	position: absolute;
+}
+
+.ui.shape .side {
+	height: 335px;
+}
+
+div.image {
+	position: relative;
+	width: 160px;
+	margin: 0 auto;
+	padding-bottom: 12px;
 }

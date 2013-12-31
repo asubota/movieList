@@ -16,8 +16,8 @@ var HeaderView = Backbone.View.extend({
     },
 
     selectMenuItem: function(menuItem) {
-        this.$el.find('a').removeClass('active');
-        this.$el.find('a.item'+'.item-'+menuItem).addClass('active');
+        this.$('a').removeClass('active');
+        this.$('a.item'+'.item-'+menuItem).addClass('active');
     },
     
     mainPage: function(){

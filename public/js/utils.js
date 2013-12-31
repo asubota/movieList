@@ -2,6 +2,14 @@ var utils = {
 
     per_page: 18,
 
+    format_text: function(text) {
+        if (text.length >= 270) {
+            text = text.substr(0,270) + "...";
+        }
+
+        return text;
+    },
+
     loadTemplate: function(views, callback) {
 
         var deferreds = [];
