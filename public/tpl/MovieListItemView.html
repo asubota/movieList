@@ -3,15 +3,9 @@
 
 		<div class="side active ui segment cover">
 			<div class="image">
-				<% if (year > 2012) { %>
-				<div class="ui red corner label">
-					<div class="text">New</div>
+				<div class="ui teal corner label">
+					<div class="text"><%= year %></div>
 				</div>
-				<% } else {%>
-				<a class="like ui corner label">
-					<i class="like icon"></i>
-				</a>
-				<% } %>
 				<img src="<%= 'logo/' + image %>" alt="<%= title_ru %>" class="rounded ui image">
 			</div>
 			<div class="content">

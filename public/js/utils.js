@@ -1,6 +1,14 @@
 var utils = {
 
-    per_page: 18,
+    per_page: 20,
+
+    format_text: function(text) {
+        if (text.length >= 200) {
+            text = text.substr(0,200) + "...";
+        }
+
+        return text;
+    },
 
     format_text: function(text) {
         if (text.length >= 270) {

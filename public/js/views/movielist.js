@@ -14,14 +14,14 @@ var MovieListView = Backbone.View.extend({
     },
 
     cover: function(event) {
-        var shape = $(event.target).closest('.ui.shape');
+        var $shape = $(event.target).closest('.ui.shape'),
+            animating = $shape.shape('is animating'),
+            direction = (event.type === 'mouseenter') ? 'back' : 'over';
 
-        if (shape.hasClass('animating')) return;
-
-        if (event.type === 'mouseenter') {
-            shape.shape('set next side', '.text.side').shape('flip back');
+        if (!animating) {
+            $shape.shape('flip ' + direction);
         } else {
-            shape.shape('set next side', '.cover.side').shape('flip over');
+            $shape.shape('queue', 'flip ' + direction);
         }
     },
 

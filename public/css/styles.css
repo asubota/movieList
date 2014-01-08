@@ -3,8 +3,10 @@ body {
 }
 
 #container {
-	margin-left: 30px;
-	margin-right: 30px;
+	padding-right: 30px;
+	padding-left: 30px;
+	width: 1120px;
+	margin: 0 auto;
 }
 
 #header {
@@ -33,12 +35,12 @@ a {
 
 .ui.shape {
 	height: 335px;
-	width: 240px;
+	width: 220px;
 }
 
 .ui.shape .sides {
 	height: 335px;
-	width: 240px;
+	width: 220px;
 	position: absolute;
 }
 
