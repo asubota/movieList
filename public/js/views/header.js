@@ -1,5 +1,5 @@
 var HeaderView = Backbone.View.extend({
-    
+
     className: "ui grid center aligned",
 
     initialize: function() {
@@ -12,16 +12,17 @@ var HeaderView = Backbone.View.extend({
     },
 
     events: {
-        'click .item.item-main': 'mainPage'
+        'click .item:not(.disabled)': 'visitPage'
     },
 
     selectMenuItem: function(menuItem) {
         this.$('a').removeClass('active');
-        this.$('a.item'+'.item-'+menuItem).addClass('active');
+        this.$("a.item[data-page='"+menuItem+"']").addClass('active');
     },
-    
-    mainPage: function(){
-        app.navigate('movies', {trigger:true, replace:true});
+
+    visitPage: function(event){
+        var page = event.currentTarget.dataset.page;
+        app.navigate(page, {trigger:true, replace:true});
     }
 
 });

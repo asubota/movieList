@@ -3,10 +3,10 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         ""                  : "list",
         "movies"            : "list",
-        "year/:value"       : "byyear",
-        "genre/:value"      : "bygenre",
-        "director/:value"   : "bydirector",
-        "country/:value"    : "bycountry",
+        "year(/:value)"       : "byyear",
+        "genre(/:value)"      : "bygenre",
+        "director(/:value)"   : "bydirector",
+        "country(/:value)"    : "bycountry",
 
         "movies/page/:page" : "list",
         "movies/:id"        : "movieDetails",
@@ -22,7 +22,7 @@ var AppRouter = Backbone.Router.extend({
                 .append('<div class="ui horizontal icon divider"><i class="circular asterisk icon"></i></div>')
                 .append(new PaginatorView({model: movieList, page: p}).render().el);
         }});
-        this.headerView.selectMenuItem('main');
+        this.headerView.selectMenuItem('movies');
     },
 
     byyear: function(value) {

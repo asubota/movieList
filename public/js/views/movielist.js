@@ -8,9 +8,9 @@ var MovieListView = Backbone.View.extend({
     className: "ui grid five column",
 
     events: {
-        'click': 'detailInfo',
-        'mouseenter .shape': 'cover',
-        'mouseleave .shape': 'cover',
+        'click .shape'      : 'detailInfo',
+        'mouseenter .shape' : 'cover',
+        'mouseleave .shape' : 'cover'
     },
 
     cover: function(event) {

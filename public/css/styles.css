@@ -34,18 +34,18 @@ a {
 }
 
 .ui.shape {
-	height: 335px;
+	height: 350px;
 	width: 220px;
 }
 
 .ui.shape .sides {
-	height: 335px;
+	height: 350px;
 	width: 220px;
 	position: absolute;
 }
 
 .ui.shape .side {
-	height: 335px;
+	height: 350px;
 }
 
 div.image {

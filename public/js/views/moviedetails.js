@@ -12,9 +12,9 @@ var MovieView = Backbone.View.extend({
 	className: 'ui grid',
 
 	events: {
-		'click .back': 'back',
-		'click .extra-info a': 'switchTab',
-		'click .sort-by': 'sortBy'
+		'click .back':			'back',
+		'click .extra-info a':	'switchTab',
+		'click .sort-by':		'sortBy'
 	},
 
 	switchTab: function(event) {
