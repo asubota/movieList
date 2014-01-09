@@ -1,13 +1,10 @@
 
 require 'nokogiri'
 require 'open-uri'
-require "active_support/core_ext"
-require 'open-uri'
 require 'fileutils'
 require 'net/http'
 require 'thread'
-
-moviesAll = []
+require 'json'
 
 def slug(item)
   item.gsub(/[^\w]/, '-').gsub(/-+/, '-').downcase
@@ -85,7 +82,13 @@ def time
   Time.now - start
 end
 
-page_count = 60
+dirname = File.dirname("../public/logo/")
+unless File.directory?(dirname)
+  FileUtils.mkdir_p(dirname)
+end
+
+moviesAll = []
+page_count = 2
 parsing_time = time do
   pages = 0..page_count
   threads = []
