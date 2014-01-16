@@ -29,7 +29,7 @@ var MovieListView = Backbone.View.extend({
         var id = $(event.target).closest('.ui.shape').data('id');
 
         if (id) {
-            app.navigate("movies/" + id, {trigger: true});
+            app.navigate(id, {trigger: true});
         }
     },
 
