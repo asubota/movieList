@@ -1,11 +1,13 @@
-var mongo = require('mongodb');
-var _     = require('underscore');
+var mongo = require('mongodb'),
+    _     = require('underscore'),
+    $     = require('jquery');
 
 var Server  = mongo.Server,
     Db      = mongo.Db,
     BSON    = mongo.BSONPure;
 
 var server = new Server('localhost', 27017, {auto_reconnect: true});
+
 db = new Db('movieList', server, {safe:false});
 
 db.open(function(err, db) {
@@ -40,121 +42,82 @@ exports.findMovieById = function(req, res) {
 };
 
 exports.findMovieByYear = function(req, res) {
-    var value = req.params.value;
-    console.log('Retrieving movie by year: ' + value);
-    db.collection('movies', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            var result = _.filter(items, function(item) {
-                return _.contains(item.year, value);
-            });
-
-            res.send(result);
-        });
-    });
+    sendListBy(req, res, 'year');
 };
 
 exports.findMovieByGenre = function(req, res) {
-    var value = req.params.value;
-    console.log('Retrieving movie by genre: ' + value);
-    db.collection('movies', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            var result = _.filter(items, function(item) {
-                return _.contains(item.genres, value);
-            });
-
-            res.send(result);
-        });
-    });
+    sendListBy(req, res, 'genres');
 };
 
 exports.findMovieByDirector = function(req, res) {
-    var value = req.params.value;
-    console.log('Retrieving movie by director: ' + value);
-    db.collection('movies', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            var result = _.filter(items, function(item) {
-                return _.contains(item.director, value);
-            });
-
-            res.send(result);
-        });
-    });
+    sendListBy(req, res, 'director');
 };
 
 exports.findMovieByCountry = function(req, res) {
-    var value = req.params.value;
-    console.log('Retrieving movie by country: ' + value);
-    db.collection('movies', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            var result = _.filter(items, function(item) {
-                return _.contains(item.countries, value);
-            });
-
-            res.send(result);
-        });
-    });
-};
-
-exports.findMovieByDirectorAll = function(req, res) {
-    db.collection('movies', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            var allDirectors = _.uniq(_.flatten(_.pluck(items, 'director'))),
-                result = _.map(allDirectors, function(directorName) {
-                var data = {
-                    director: directorName,
-                    movies: []
-                };
-
-                _.each(items, function(movie){
-                    if (_.contains(movie.director, directorName)) {
-                        data.movies.push(movie);
-                    }
-                });
-
-                return data;
-            });
-
-            res.send(result);
-        });
-    });
+    sendListBy(req, res, 'countries');
 };
 
 exports.findDirectorAll = function(req, res) {
-    db.collection('movies', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            var result = _.uniq(_.flatten(_.pluck(items, 'director')));
-
-            res.send(result);
-        });
-    });
+    sendListOf(req, res, 'directors');
 };
 
 exports.findActorAll = function(req, res) {
-    db.collection('movies', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            var result = _.uniq(_.flatten(_.pluck(items, 'actors')));
-
-            res.send(result);
-        });
-    });
+    sendListOf(req, res, 'actors');
 };
 
 exports.findGenreAll = function(req, res) {
-    db.collection('movies', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            var result = _.uniq(_.flatten(_.pluck(items, 'genres')));
+    sendListOf(req, res, 'genres');
+};
 
-            res.send(result);
-        });
-    });
+exports.findYearAll = function(req, res) {
+    sendListOf(req, res, 'year');
 };
 
 exports.findCountryAll = function(req, res) {
+    sendListOf(req, res, 'countries');
+};
+
+function sendListBy(req, res, type) {
+    $.when(__getListBy_(req, res, type)).done(function(response) {
+        res.send(response);
+    });
+}
+
+function __getListBy_(req, res, type) {
+    var value = req.params.value,
+        deferred = new $.Deferred();
+
+    console.log('Retrieving movie by '+type + ' : ' + value);
+
     db.collection('movies', function(err, collection) {
         collection.find().toArray(function(err, items) {
-            var result = _.uniq(_.flatten(_.pluck(items, 'countries')));
+            var result = _.filter(items, function(item) {
+                return _.contains(item[type], value);
+            });
 
-            res.send(result);
+            deferred.resolve(result);
         });
     });
-};
+
+    return deferred.promise();
+}
+
+function sendListOf(req, res, type) {
+    $.when(__getListOf_(req, res, type)).done(function(response) {
+        res.send(response);
+    });
+}
+
+function __getListOf_(req, res, type) {
+    var deferred = new $.Deferred();
+
+    db.collection('movies', function(err, collection) {
+        collection.find().toArray(function(err, items) {
+            var result = _.uniq(_.flatten(_.pluck(items, type)));
+
+            deferred.resolve(result);
+        });
+    });
+
+    return deferred.promise();
+}

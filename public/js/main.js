@@ -4,8 +4,18 @@ var AppRouter = Backbone.Router.extend({
         ''                      : 'list',
         'movies'                : 'list',
         'movies/page/:page'     : 'list',
+
+        'year'          : 'getList',
+        'genre'         : 'getList',
+        'director'      : 'getList',
+        'country'       : 'getList',
+
         ':id'                   : 'movieDetails',
         'filter/:type/:value'   : 'filter'
+    },
+
+    getList: function() {
+        $("#content").empty();
     },
 
     filter: function(type, value) {
