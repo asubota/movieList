@@ -35,7 +35,7 @@ var MovieView = Backbone.View.extend({
 
 	sortBy: function(event) {
 		var $element = $(event.target);
-		app.navigate($element.data('sort') + "/" + $element.data('value'), {trigger: true});
+		app.navigate('filter/' +  $element.data('sort') + "/" + $element.data('value'), {trigger: true});
 	},
 
 });

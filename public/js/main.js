@@ -1,15 +1,30 @@
 var AppRouter = Backbone.Router.extend({
 
     routes: {
-        ""                  : "list",
-        "movies"            : "list",
-        "year(/:value)"       : "byyear",
-        "genre(/:value)"      : "bygenre",
-        "director(/:value)"   : "bydirector",
-        "country(/:value)"    : "bycountry",
+        ''                      : 'list',
+        'movies'                : 'list',
+        'movies/page/:page'     : 'list',
 
-        "movies/page/:page" : "list",
-        "movies/:id"        : "movieDetails",
+        'year'          : 'getList',
+        'genre'         : 'getList',
+        'director'      : 'getList',
+        'country'       : 'getList',
+
+        ':id'                   : 'movieDetails',
+        'filter/:type/:value'   : 'filter'
+    },
+
+    getList: function() {
+        $("#content").empty();
+    },
+
+    filter: function(type, value) {
+        var movieList = new MovieCollection({type: type, value: value});
+
+        movieList.fetch({success: function() {
+            $("#content").html(new MovieListView({model: movieList}).el);
+        }});
+        this.headerView.selectMenuItem(value);
     },
 
     list: function(page) {
@@ -23,42 +38,6 @@ var AppRouter = Backbone.Router.extend({
                 .append(new PaginatorView({model: movieList, page: p}).render().el);
         }});
         this.headerView.selectMenuItem('movies');
-    },
-
-    byyear: function(value) {
-        var movieList = new MovieCollection({type: 'year', value: value});
-
-        movieList.fetch({success: function() {
-            $("#content").html(new MovieListView({model: movieList}).el);
-        }});
-        this.headerView.selectMenuItem('year');
-    },
-
-    bygenre: function(value) {
-        var movieList = new MovieCollection({type: 'genre', value: value});
-
-        movieList.fetch({success: function() {
-            $("#content").html(new MovieListView({model: movieList}).el);
-        }});
-        this.headerView.selectMenuItem('genre');
-    },
-
-    bydirector: function(value) {
-        var movieList = new MovieCollection({type: 'director', value: value});
-
-        movieList.fetch({success: function() {
-            $("#content").html(new MovieListView({model: movieList}).el);
-        }});
-        this.headerView.selectMenuItem('director');
-    },
-
-    bycountry: function(value) {
-        var movieList = new MovieCollection({type: 'country', value: value});
-
-        movieList.fetch({success: function() {
-            $("#content").html(new MovieListView({model: movieList}).el);
-        }});
-        this.headerView.selectMenuItem('country');
     },
 
     movieDetails: function(id) {
