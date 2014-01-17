@@ -3,7 +3,37 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 
 		pkg: grunt.file.readJSON('package.json'),
-		
+
+		files: {
+			js: {
+				main: 'public/js/application.min.js',
+				lib: 'public/js/lib.min.js',
+				source: [
+					'public/js/*/*.js',
+					'public/js/utils.js',
+					'public/js/main.js'
+				],
+				libSource: [
+					'public/lib/jquery-2.0.3.min.js',
+					'public/lib/underscore-min.js',
+					'public/lib/backbone-min.js',
+					'public/lib/semantic.min.js'
+				],
+				tests: {
+					specs: 'tests/unit/spec/*.Spec.js',
+					helpers: 'tests/unit/spec/*.Helper.js',
+				}
+			},
+			css: {
+				main: 'public/css/application.css',
+				compile: 'public/styles/css/styles.min.css',
+				source: ['public/styles/css/*.css']
+			},
+			less: {
+				source: ['public/styles/less/styles.less']
+			}
+		},
+
 		uglify: {
 			options: {
 				banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -28,11 +58,19 @@ module.exports = function(grunt) {
 
 		jshint: {
 			options: {
-				'curly': true,
-				'eqnull': true,
-				'eqeqeq': true,
+				curly: true,
+				eqnull: true,
+				eqeqeq: true,
+				boss: true,
+				lastsemic: true,
+				loopfunc: true,
+				trailing: true,
+				immed: true,
+				newcap: true,
+				noarg: true,
+				sub: true,
 			},
-			files: '<%= files.js.source %>'
+			files: ['Gruntfile.js', '<%= files.js.source %>']
 		},
 
 		less: {
@@ -48,31 +86,23 @@ module.exports = function(grunt) {
 			},
 		},
 
-		files: {
-			js: {
-				main: 'public/js/application.min.js',
-				lib: 'public/js/lib.min.js',
-				source: [
-					'public/js/*/*.js',
-					'public/js/utils.js',
-					'public/js/main.js'
-				],
-				libSource: [
-					'public/lib/jquery-2.0.3.min.js',
-					'public/lib/underscore-min.js',
-					'public/lib/backbone-min.js',
-					'public/lib/semantic.min.js'
-				]
-			},
-			css: {
-				main: 'public/css/application.css',
-				compile: 'public/styles/css/styles.min.css',
-				source: ['public/styles/css/*.css']
-			},
-			less: {
-				source: ['public/styles/less/styles.less']
+		jasmine: {
+			unit: {
+				src: ['<%= files.js.lib %>', '<%= files.js.source %>'],
+				options: {
+					specs: '<%= files.js.tests.specs %>',
+					helpers: '<%= files.js.tests.helpers %>'
+
+/*
+					junit: {
+						consolidate: true,
+						path: "junit-report"
+					}
+*/
+
+				}
 			}
-		}
+		},
 	});
 
 	// Load the plugin that provides the "uglify" task.
@@ -83,7 +113,8 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-jasmine');
 
 	// Default task(s).
-	grunt.registerTask('default', ['less', 'jshint', 'uglify', 'concat']);
+	grunt.registerTask('default', ['less', 'jshint', 'uglify', 'concat', 'jasmine']);
 };
