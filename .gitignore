@@ -16,3 +16,7 @@ node_modules
 public/logo
 assets/movies.json
 assets/Gemfile.lock
+
+
+public/js/application.min.js
+public/js/lib.min.js
