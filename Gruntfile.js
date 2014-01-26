@@ -68,7 +68,7 @@ module.exports = function(grunt) {
 				immed: true,
 				newcap: true,
 				noarg: true,
-				sub: true,
+				sub: true
 			},
 			files: ['Gruntfile.js', '<%= files.js.source %>']
 		},
@@ -78,12 +78,17 @@ module.exports = function(grunt) {
 				options: {
 					cleancss: true,
 					compress: true,
-					report: 'min',
+					report: 'min'
 				},
 				files: {
 					'<%= files.css.compile %>': '<%= files.less.source %>'
 				}
-			},
+			}
+		},
+
+		watch: {
+			files: ['<%= files.js.source %>', '<%= files.less.source %>'],
+			tasks: ['less', 'concat']
 		},
 
 		jasmine: {
@@ -111,6 +116,7 @@ module.exports = function(grunt) {
 	// Concatenate files plugin
 	grunt.loadNpmTasks('grunt-contrib-concat');
 
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');

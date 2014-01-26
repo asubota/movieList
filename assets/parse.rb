@@ -82,7 +82,7 @@ def time
   Time.now - start
 end
 
-dirname = File.dirname("../public/logo/")
+dirname = File.dirname("../public/logo/index.html")
 unless File.directory?(dirname)
   FileUtils.mkdir_p(dirname)
 end
