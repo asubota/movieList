@@ -88,7 +88,7 @@ module.exports = function(grunt) {
 
 		watch: {
 			files: ['<%= files.js.source %>', '<%= files.less.source %>'],
-			tasks: ['less', 'concat']
+			tasks: ['less', 'concat', 'uglify']
 		},
 
 		jasmine: {
@@ -123,4 +123,5 @@ module.exports = function(grunt) {
 
 	// Default task(s).
 	grunt.registerTask('default', ['less', 'jshint', 'uglify', 'concat', 'jasmine']);
+	grunt.registerTask('dev', ['watch']);
 };

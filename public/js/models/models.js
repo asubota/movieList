@@ -7,9 +7,27 @@ var MovieCollection = Backbone.Collection.extend({
 	model: Movie,
 	url: "/movie",
 
-	initialize: function(options){
+	initialize: function(options) {
 		if (options) {
 			this.url = this.url + "/" + options.type + "/" + options.value;
 		}
+	}
+});
+
+var Item = Backbone.Model;
+
+var ItemCollection = Backbone.Collection.extend({
+	model: Item,
+	url: "/countries",
+
+	initialize: function(options) {
+		if (options) {
+			this.type = options.type;
+			this.url = "/" + options.type;
+		}
+	},
+
+	parse: function(response) {
+		return {response: response};
 	}
 });

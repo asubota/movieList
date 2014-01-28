@@ -3,8 +3,8 @@ var utils = {
     per_page: 20,
 
     format_text: function(text) {
-        if (text.length >= 270) {
-            text = text.substr(0,270) + "...";
+        if (text.length >= 250) {
+            text = text.substr(0,250) + "...";
         }
 
         return text;
@@ -27,4 +27,8 @@ var utils = {
         $.when.apply(null, deferreds).done(callback);
     }
 
+};
+
+var cl = function(x) {
+    console.log(x);
 };

@@ -58,7 +58,7 @@ exports.findMovieByCountry = function(req, res) {
 };
 
 exports.findDirectorAll = function(req, res) {
-    sendListOf(req, res, 'directors');
+    sendListOf(req, res, 'director');
 };
 
 exports.findActorAll = function(req, res) {

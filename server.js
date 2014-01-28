@@ -22,11 +22,11 @@ app.get('/movie/director/:value',		movies.findMovieByDirector);
 app.get('/movie/genre/:value',			movies.findMovieByGenre);
 app.get('/movie/country/:value',		movies.findMovieByCountry);
 
-app.get('/directors',					movies.findDirectorAll);
-app.get('/genres',						movies.findGenreAll);
-app.get('/actors',						movies.findActorAll);
-app.get('/countries',					movies.findCountryAll);
-app.get('/years',						movies.findYearAll);
+app.get('/director',					movies.findDirectorAll);
+app.get('/genre',						movies.findGenreAll);
+app.get('/actor',						movies.findActorAll);
+app.get('/country',						movies.findCountryAll);
+app.get('/year',						movies.findYearAll);
 
 http.createServer(app).listen(app.get('port'), function () {
 	console.log("Express server listening on port " + app.get('port'));

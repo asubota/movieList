@@ -1,10 +1,10 @@
 var MovieView = Backbone.View.extend({
 
-	initialize: function () {
+	initialize: function() {
 		this.render();
 	},
 
-	render: function () {
+	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
 		return this;
 	},

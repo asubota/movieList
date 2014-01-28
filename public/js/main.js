@@ -15,7 +15,14 @@ var AppRouter = Backbone.Router.extend({
     },
 
     getList: function() {
-        $("#content").empty();
+        var currentUrl = Backbone.history.fragment,
+            itemList = new ItemCollection({type: currentUrl});
+
+        itemList.fetch({success: function() {
+            $("#content").html( new ItemListView({model: itemList, name: currentUrl}).el );
+        }});
+
+        this.headerView.selectMenuItem(currentUrl);
     },
 
     filter: function(type, value) {
@@ -70,7 +77,7 @@ var AppRouter = Backbone.Router.extend({
 
 });
 
-utils.loadTemplate(['MovieView', 'MovieListItemView', 'PaginatorView', 'HeaderView'], function() {
+utils.loadTemplate(['MovieView', 'MovieListItemView', 'PaginatorView', 'HeaderView', 'ItemListView'], function() {
     app = new AppRouter();
     Backbone.history.start();
 });
