@@ -11,6 +11,10 @@ var MovieCollection = Backbone.Collection.extend({
 		if (options) {
 			this.url = this.url + "/" + options.type + "/" + options.value;
 		}
+	},
+
+	comparator: function(movie) {
+		return movie.get('title_ru');
 	}
 });
 

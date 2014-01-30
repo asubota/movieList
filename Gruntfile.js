@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 				tests: {
 					specs: 'tests/unit/spec/*.Spec.js',
 					helpers: 'tests/unit/spec/*.Helper.js',
+					fixtures: 'tests/unit/fixture/*.Fixture.js'
 				}
 			},
 			css: {
@@ -96,7 +97,8 @@ module.exports = function(grunt) {
 				src: ['<%= files.js.lib %>', '<%= files.js.source %>'],
 				options: {
 					specs: '<%= files.js.tests.specs %>',
-					helpers: '<%= files.js.tests.helpers %>'
+					helpers: '<%= files.js.tests.helpers %>',
+					vendor: '<%= files.js.tests.fixtures %>'
 
 /*
 					junit: {
