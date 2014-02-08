@@ -33,9 +33,11 @@ var cl = function(x) {
     console.log(x);
 };
 
-var $dimmer = $('.ui.dimmer');
-$(document).ajaxStart(function() {
-    $dimmer.addClass('active');
-}).ajaxComplete(function() {
-    $dimmer.removeClass('active');
-});
+(function() {
+    var $dimmer = $('.ui.dimmer');
+    $(document).ajaxStart(function() {
+        $dimmer.addClass('active');
+    }).ajaxComplete(function() {
+        $dimmer.removeClass('active');
+    });
+})();
