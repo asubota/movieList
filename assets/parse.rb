@@ -5,6 +5,7 @@ require 'fileutils'
 require 'net/http'
 require 'thread'
 require 'json'
+require 'active_support/core_ext'
 
 def slug(item)
   item.gsub(/[^\w]/, '-').gsub(/-+/, '-').downcase
@@ -14,11 +15,16 @@ def get_extra(link)
   def get_mini_extra(rows,row_num)
     box = []
     rows[row_num].css('td')[1].css('a span:not(.tag-country-flag)').each do |item|
-      value = item.text.strip.gsub(/[^a-zA-Zа-яА-Я0-9 ]/,'').downcase
+      value = item.text.strip.gsub(/[^a-zA-Zа-яА-Я0-9 ]/,'')
       box << value unless value === 'еще'
     end
 
-    box
+    if row_num === 1
+      box.join
+    else
+      box.map { |item| item.mb_chars.downcase.to_s }
+    end
+
   end
 
   puts "processing #{link}"
@@ -34,7 +40,7 @@ def get_extra(link)
     extra[:genres]    = get_mini_extra rows, 0
     extra[:year]      = get_mini_extra rows, 1
     extra[:countries] = get_mini_extra rows, 2
-    extra[:director]  = get_mini_extra rows, 3
+    extra[:directors] = get_mini_extra rows, 3
     extra[:actors]    = get_mini_extra rows, 4
   end
 
@@ -88,7 +94,7 @@ unless File.directory?(dirname)
 end
 
 moviesAll = []
-page_count = 2
+page_count = 666
 parsing_time = time do
   pages = 0..page_count
   threads = []
@@ -108,7 +114,7 @@ parsing_time = time do
   threads.each(&:join)
 
   movieCollection = "[#{moviesAll.map(&:to_json).join(",\n")}]"
-  File.open('movies.json', 'w') { |file| file.write movieCollection }
+  File.open('data.json', 'w') { |file| file.write movieCollection }
   puts "Done !\n\n"
 end
 

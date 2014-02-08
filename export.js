@@ -8,7 +8,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/movieList', function(err, db) {
     //*************
 
     var moviesCollection = db.collection('movies'),
-        movies = require( './assets/movies' );
+        movies = require( './assets/data' );
 
     moviesCollection.remove(function(){
         console.log( ">>>>>> movies Cleared" );

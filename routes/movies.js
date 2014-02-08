@@ -50,7 +50,7 @@ exports.findMovieByGenre = function(req, res) {
 };
 
 exports.findMovieByDirector = function(req, res) {
-    sendListBy(req, res, 'director');
+    sendListBy(req, res, 'directors');
 };
 
 exports.findMovieByCountry = function(req, res) {
@@ -58,7 +58,7 @@ exports.findMovieByCountry = function(req, res) {
 };
 
 exports.findDirectorAll = function(req, res) {
-    sendListOf(req, res, 'director');
+    sendListOf(req, res, 'directors');
 };
 
 exports.findActorAll = function(req, res) {
@@ -87,12 +87,12 @@ function __getListBy_(req, res, type) {
     var value = req.params.value,
         deferred = new $.Deferred();
 
-    console.log('Retrieving movie by '+type + ' : ' + value);
+    console.log('Retrieving movie by ' + type + ' : ' + value);
 
     db.collection('movies', function(err, collection) {
         collection.find().toArray(function(err, items) {
             var result = _.filter(items, function(item) {
-                return _.contains(item[type], value);
+                return _.isArray(item[type]) ? _.contains(item[type], value) : item[type] === value;
             });
 
             deferred.resolve(result);
